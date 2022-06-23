@@ -1,11 +1,10 @@
 # r-hdi-religion-script
-Examining the Human Development Index and Non-religious Groups
+# Examining the Human Development Index and Non-religious Groups
 
 ---
 title: "Examining the Human Development Index and Non-religious Groups"
 author: "by Raquel Baeta"
-output: html_document
-    
+output: html_document   
 ---
 
 ```{r setup, include=FALSE}
@@ -13,9 +12,6 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r, packages for Q2, include=FALSE}
-
-# load packages "tidyverse" using
-
 library(tidyverse) 
 library(readr)
 library(ggplot2)
@@ -23,7 +19,6 @@ library(car)
 ```
 
 ```{r, importing data, include=FALSE}
-
 # import data and assign a new data frame
 xn <- read_csv("~/Desktop/xn.csv", 
                col_names=TRUE, 
@@ -32,7 +27,6 @@ xn <- read_csv("~/Desktop/xn.csv",
 
 
 ```{r, view data, include=FALSE}
-
 # data insepction 
 
 view(xn) # view the data frame
@@ -41,7 +35,6 @@ str(xn) # check structure
 ```
 
 ```{r, variable selection, include=FALSE}
-
 # data selection
 
 my_data <- select(xn, country, pop, hdi, nonrelig) # selecting variables
@@ -52,7 +45,6 @@ summary(xn$pop) # check
 ```
 
 ```{r, missing values, include=FALSE}
-
 # missing data 
 
 colSums(is.na(my_data)) # checking missing values 
@@ -64,14 +56,12 @@ sum(is.na(my_data)) # check again for missing data
 ```
 
 ```{r, data overview, include=TRUE, fig.width=7, fig.height=5}
-
 # plot overview
 
 plot(my_data, col = "blue")  
 ```
 
 ```{r, plot of hdi and nonrelig, warning=FALSE, include=TRUE, fig.width=7, fig.height=5}
-
 # hdi and non-religious
 
 ggplot(data = xn) + 
@@ -79,7 +69,6 @@ ggplot(data = xn) +
 ```
 
 ```{r, Q4 visualisation 1, warning=FALSE, include=TRUE, fig.width=7, fig.height=5}
-
 # population and non-religious
 
 ggplot(data = xn) + 
@@ -89,13 +78,11 @@ ggplot(data = xn) +
 ```{r, Q4 visualisation 2, warning=FALSE, include=TRUE, fig.width=7, fig.height=5}
 
 # hdi and population 
-
 ggplot(data = xn) + 
   geom_point(mapping = aes(x = hdi, y = pop)) 
 ```
 
 ```{r, Q4 visualisation 3, warning=FALSE, include=TRUE, fig.width=7, fig.height=5}
-
 # hdi and violent_decol
 
 ggplot(data=xn, mapping=aes(hdi, violent_decol)) +
@@ -109,7 +96,6 @@ ggplot(data=xn, mapping=aes(hdi, violent_decol)) +
 ```
 
 ```{r, Q4 visualisation 4, warning=FALSE, include=TRUE, fig.width=7, fig.height=5}
-
 # population and christianity 
 
 ggplot(data=xn, mapping=aes(pop, christian)) +
@@ -123,7 +109,6 @@ ggplot(data=xn, mapping=aes(pop, christian)) +
 ```
 
 ```{r, Q4 visualisation 5, warning=FALSE, include=TRUE}
-
 # population and non-religious
 
 ggplot(data=xn, mapping=aes(pop, nonrelig)) +
@@ -137,7 +122,6 @@ ggplot(data=xn, mapping=aes(pop, nonrelig)) +
 ```
 
 ```{r, regression model, include=FALSE}
-
 # linear regression of hdi and non-religion
 
 my_reg <- lm(hdi ~ pop + nonrelig, data = my_data) 
@@ -148,17 +132,14 @@ abline(my_reg)
 ```
 
 ```{r, regression model ggplot2, include=FALSE}
-
 # regression plotted in ggplot2
 
 ggplot(my_data, aes(x = hdi, y = nonrelig)) + 
   geom_point() +
   stat_smooth(method = "lm", col = "red")
-
 ```
 
 ```{r, regression model with line, include=FALSE}
-
 # regression plotted in ggplot2
 
 ggplotRegression <- function (my_data) 
@@ -177,7 +158,6 @@ ggplotRegression <- function (my_data)
 ```
 
 ```{r, my_regression, include=TRUE}
-
 # final regression plot
 
 my_regression <- lm(nonrelig ~ hdi, data = my_data)
